@@ -10,6 +10,7 @@
 
 //Var
 int version = 1;
+int subversion = 1;
 char fields[9] = {'0', '1', '2', '3', '4', '5', '6', '7', '8'};
 int loop = 0;
 int player = 2;
@@ -29,7 +30,7 @@ char xro; //Decides between X or O
 //Startmethod
 int main(int argc, char** argv) {
 
-    printf("Welcome to TicTacToe_CLI Version %i!\n", version);
+    printf("Welcome to TicTacToe_CLI Version %i.%i!\n", version, subversion);
     
     do { //mainloop
     
@@ -61,6 +62,9 @@ int main(int argc, char** argv) {
             
             //Check if someone has won
             checkwin();
+            
+            //Check if the Game is over and nobody wins
+            checkloose();
     
         }while(loop == 0);
     
@@ -124,6 +128,24 @@ int checkwin() {
     if (fields[0] == xro && fields[4] == xro && fields[8] == xro) {
         win();
     }
+}
+
+int checkloose() {
+    int tempcounter = 0; //count to 9
+    for(int i = 0; i < 9; i++) {
+        if (fields[i] == 'x' || fields[i] == 'o') {
+            tempcounter++;
+        }
+    }
+    
+    //Check if all 9 positions in the array are changed
+    if (tempcounter == 9) {
+        printf("Gameover!");
+        exit(0);
+    }
+    
+    //Reset Tempcounter
+    tempcounter = 0;
 }
 
 int win() {
